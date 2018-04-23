@@ -61,7 +61,7 @@ namespace SourceChord.GridExtra
                 panel.ItemHeight = originalSize.Height;
 
                 panel.ClearValue(OriginalSizeProperty);
-                // イベントの解除
+
                 var callback = GetLayoutUpdatedCallback(panel);
                 panel.LayoutUpdated -= callback;
             }
