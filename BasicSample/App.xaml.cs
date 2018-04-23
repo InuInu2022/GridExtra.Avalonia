@@ -12,7 +12,7 @@ namespace BasicSample
     {
         public override void Initialize()
         {
-            AvaloniaXamlLoader.Load(this);
+             AvaloniaXamlLoader.Load(this);
         }
 
         static void Main(string[] args)
@@ -22,9 +22,9 @@ namespace BasicSample
 
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .UseReactiveUI()
-                .LogToDebug(LogEventLevel.Verbose);
+                .UsePlatformDetect();
+                // .UseReactiveUI()
+                // .LogToDebug(LogEventLevel.Verbose);
 
     }
 }

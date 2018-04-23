@@ -17,33 +17,29 @@ namespace BasicSample
     /// </summary>
     public class MainWindow : Window
     {
+        private Grid sampleGrid;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.sampleGrid = this.FindControl<Grid>("grid");
+            this.Activated += MW_Activated;
+        }
+
+        private void MW_Activated(object sender, EventArgs e)
+        {
+            var temp = @"
+             Header Header Header/
+            Menu Content SubMenu/
+            Footer Footer Footer/
+";
+            GridExtra.GridEx.SetTemplateArea(sampleGrid, temp);
         }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var grid = this.FindControl<Grid>("grid");
-            var temp = @"
-            Header  Header
-            Menu    SubMenu
-            Content Content
-            Footer  Footer
-";
-            
-            grid.LayoutUpdated += (i,o) => 
-            {
-
-                Debug.Print("Yolo");
-            };
-            
-            GridExtra.GridEx.SetTemplateArea(grid, temp);
-        }
+ 
     }
 }

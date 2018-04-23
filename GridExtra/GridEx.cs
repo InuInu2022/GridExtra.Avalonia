@@ -4,13 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
+using System.Reactive.Linq;
+
 
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-
-
-
+using System.Diagnostics;
 
 namespace GridExtra
 {
@@ -56,12 +56,12 @@ namespace GridExtra
 
         static GridEx()
         {
-            AutoFillChildrenProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnAutoFillChildrenChanged);
-            ColumnDefinitionProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnColumnDefinitionChanged);
-            RowDefinitionProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnRowDefinitionChanged);
-            TemplateAreaProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnTemplateAreaChanged);
-            AreaNameProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnAreaNameChanged);
-            AreaProperty.Changed.AddClassHandler<GridEx>(p=> GridEx.OnAreaChanged);
+            AutoFillChildrenProperty.Changed.Subscribe(GridEx.OnAutoFillChildrenChanged);
+            ColumnDefinitionProperty.Changed.Subscribe(GridEx.OnColumnDefinitionChanged);
+            RowDefinitionProperty.Changed.Subscribe(GridEx.OnRowDefinitionChanged);
+            TemplateAreaProperty.Changed.Subscribe(GridEx.OnTemplateAreaChanged);
+            AreaNameProperty.Changed.Subscribe(GridEx.OnAreaNameChanged);
+            AreaProperty.Changed.Subscribe(GridEx.OnAreaChanged);
         }
 
         public static Orientation GetAutoFillOrientation(AvaloniaObject obj)
@@ -84,7 +84,7 @@ namespace GridExtra
         {
             obj.SetValue(AutoFillChildrenProperty, value);
         }
-       
+
         // Using a AvaloniaProperty as the backing store for AutoFillChildren.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<bool> AutoFillChildrenProperty =
             AvaloniaProperty.RegisterAttached<GridEx, Control, bool>("AutoFillChildren", false);
@@ -124,11 +124,6 @@ namespace GridExtra
             var prevRow = grid.RowDefinitions.Count;
             var prevOrientation = GetAutoFillOrientation(grid);
 
-            
-            grid.LayoutUpdated += (i,o)=>
-            {
-
-            };
             var layoutUpdateCallback = new LayoutUpdateEventHandler((sender, args) =>
             {
                 var count = grid.Children.Count;
@@ -167,16 +162,22 @@ namespace GridExtra
 
         private static void AutoFill(Grid grid)
         {
+            Debug.WriteLine($"Auto{grid.Name}");
             var isEnabled = GetAutoFillChildren(grid);
             var rowCount = grid.RowDefinitions.Count;
             var columnCount = grid.ColumnDefinitions.Count;
             var orientation = GetAutoFillOrientation(grid);
+
+
+            Debug.WriteLine($"rowCount {rowCount}");
+            Debug.WriteLine($"columnCount {columnCount}");
 
             if (!isEnabled || rowCount == 0 || columnCount == 0) return;
 
             var area = new bool[rowCount, columnCount];
 
             var autoLayoutList = new List<Control>();
+
             // Grid内の位置固定要素のチェック
             foreach (Control child in grid.Children)
             {
@@ -277,7 +278,7 @@ namespace GridExtra
         // public static readonly AvaloniaProperty  =
         //     AvaloniaProperty.RegisterAttached("", typeof(), typeof(GridEx), new PropertyMetadata(null, OnColumnDefinitionChanged));
         public static readonly AvaloniaProperty<string> ColumnDefinitionProperty =
-            AvaloniaProperty.RegisterAttached<GridEx, Control, string>("ColumnDefinition", null);
+            AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("ColumnDefinition", null);
 
         private static void OnColumnDefinitionChanged(AvaloniaPropertyChangedEventArgs e)
         {
@@ -323,10 +324,10 @@ namespace GridExtra
         {
             obj.SetValue(RowDefinitionProperty, value);
         }
-    
+
         // Using a AvaloniaProperty as the backing store for RowDefinition.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<string> RowDefinitionProperty =
-            AvaloniaProperty.RegisterAttached<GridEx, Control, string>("RowDefinition", null);
+            AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("RowDefinition", null);
 
 
 
@@ -415,6 +416,8 @@ namespace GridExtra
             {
                 InitializeTemplateArea(grid, param);
             }
+
+
         }
 
         private static void InitializeTemplateArea(Grid grid, string param)
@@ -551,10 +554,17 @@ namespace GridExtra
                 return;
             }
 
-            UpdateItemPosition(ctrl);
 
             // 子要素全体のAutoFillを計算しなおす
             var grid = ctrl.Parent as Grid;
+            if (grid == null)
+            {
+                return;
+            }
+
+            UpdateItemPosition(ctrl);
+
+
             var isAutoFill = GetAutoFillChildren(grid);
             if (isAutoFill)
             {
@@ -575,8 +585,8 @@ namespace GridExtra
         //     AvaloniaProperty.RegisterAttached("", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnAreaChanged));
 
 
-       public static readonly AvaloniaProperty<string> AreaProperty =
-                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("Area", null);
+        public static readonly AvaloniaProperty<string> AreaProperty =
+                     AvaloniaProperty.RegisterAttached<GridEx, Control, string>("Area", null);
 
         private static void OnAreaChanged(AvaloniaPropertyChangedEventArgs e)
         {
@@ -587,7 +597,6 @@ namespace GridExtra
                 return;
             }
 
-            UpdateItemPosition(ctrl);
 
             // 子要素全体のAutoFillを計算しなおす
             var grid = ctrl.Parent as Grid;
@@ -595,6 +604,10 @@ namespace GridExtra
             {
                 return;
             }
+
+            UpdateItemPosition(ctrl);
+
+
 
             var isAutoFill = GetAutoFillChildren(grid);
             if (isAutoFill)
