@@ -31,16 +31,16 @@ namespace SourceChord.GridExtra
 
 
 
-        public BreakPoints BreakPoints
+        public SizeThresholds BreakPoints
         {
-            get { return (BreakPoints)GetValue(BreakPointsProperty); }
+            get { return (SizeThresholds)GetValue(BreakPointsProperty); }
             set { SetValue(BreakPointsProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for BreakPoints.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty BreakPointsProperty =
             DependencyProperty.Register("BreakPoints",
-                                        typeof(BreakPoints),
+                                        typeof(SizeThresholds),
                                         typeof(ResponsiveGrid),
                                         new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsMeasure));
 

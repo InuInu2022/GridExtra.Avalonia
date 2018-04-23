@@ -22,7 +22,7 @@ namespace SourceChord.GridExtra
         public ResponsiveGrid()
         {
             this.MaxDivision = 12;
-            this.BreakPoints = new BreakPoints();
+            this.BreakPoints = new SizeThresholds();
         }
 
         protected override Size MeasureOverride(Size availableSize)
