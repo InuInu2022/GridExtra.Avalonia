@@ -22,8 +22,6 @@ namespace GridExtra
         static GridEx()
         {
             AutoFillChildrenProperty.Changed.Subscribe(GridEx.OnAutoFillChildrenChanged);
-            ColumnDefinitionProperty.Changed.Subscribe(GridEx.OnColumnDefinitionChanged);
-            RowDefinitionProperty.Changed.Subscribe(GridEx.OnRowDefinitionChanged);
             TemplateAreaProperty.Changed.Subscribe(GridEx.OnTemplateAreaChanged);
             AreaNameProperty.Changed.Subscribe(GridEx.OnAreaNameChanged);
             AreaProperty.Changed.Subscribe(GridEx.OnAreaChanged);
@@ -228,107 +226,7 @@ namespace GridExtra
                 UpdateItemPosition(child);
             }
         }
-
-        public static string GetColumnDefinition(AvaloniaObject obj)
-        {
-            return obj.GetValue(ColumnDefinitionProperty);
-        }
-        public static void SetColumnDefinition(AvaloniaObject obj, string value)
-        {
-            obj.SetValue(ColumnDefinitionProperty, value);
-        }
-        
-        // Using a AvaloniaProperty as the backing store for ColumnDefinition.  This enables animation, styling, binding, etc...
-        public static readonly AvaloniaProperty<string> ColumnDefinitionProperty =
-            AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("ColumnDefinition", null);
-
-        private static void OnColumnDefinitionChanged(AvaloniaPropertyChangedEventArgs e)
-        {
-            var grid = e.Sender as Grid;
-            var param = e.NewValue as string;
-
-            InitializeColumnDefinition(grid, param);
-
-            var template = GetTemplateArea(grid);
-            if (template != null)
-            {
-                InitializeTemplateArea(grid, template);
-            }
-        }
-
-        private static void InitializeColumnDefinition(Grid grid, string param)
-        {
-            if (grid == null || param == null)
-            {
-                return;
-            }
-
-            grid.ColumnDefinitions.Clear();
-
-            var list = param.Split(',')
-                            .Select(o => o.Trim());
-
-            foreach (var item in list)
-            {
-                var def = StringToGridLengthDefinition(item);
-                var columnDefinition = new ColumnDefinition() { Width = def.GridLength };
-                if (def.Max != null) { columnDefinition.MaxWidth = def.Max.Value; }
-                if (def.Min != null) { columnDefinition.MinWidth = def.Min.Value; }
-                grid.ColumnDefinitions.Add(columnDefinition);
-            }
-        }
-
-        public static string GetRowDefinition(AvaloniaObject obj)
-        {
-            return obj.GetValue(RowDefinitionProperty);
-        }
-        public static void SetRowDefinition(AvaloniaObject obj, string value)
-        {
-            obj.SetValue(RowDefinitionProperty, value);
-        }
-
-        // Using a AvaloniaProperty as the backing store for RowDefinition.  This enables animation, styling, binding, etc...
-        public static readonly AvaloniaProperty<string> RowDefinitionProperty =
-            AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("RowDefinition", null);
-
-
-
-        private static void OnRowDefinitionChanged(AvaloniaPropertyChangedEventArgs e)
-        {
-            var grid = e.Sender as Grid;
-            var param = e.NewValue as string;
-
-            InitializeRowDefinition(grid, param);
-
-            var template = GetTemplateArea(grid);
-            if (template != null)
-            {
-                InitializeTemplateArea(grid, template);
-            }
-        }
-
-        private static void InitializeRowDefinition(Grid grid, string param)
-        {
-            if (grid == null || param == null)
-            {
-                return;
-            }
-
-            grid.RowDefinitions.Clear();
-
-            var list = param.Split(',')
-                            .Select(o => o.Trim());
-
-            foreach (var item in list)
-            {
-                var def = StringToGridLengthDefinition(item);
-                var rowDefinition = new RowDefinition() { Height = def.GridLength };
-                if (def.Max != null) { rowDefinition.MaxHeight = def.Max.Value; }
-                if (def.Min != null) { rowDefinition.MinHeight = def.Min.Value; }
-                grid.RowDefinitions.Add(rowDefinition);
-            }
-        }
-
+ 
         // ↓GridEx内部でだけ使用する、プライベートな添付プロパティ
         public static IList<NamedAreaDefinition> GetAreaDefinitions(AvaloniaObject obj)
         {
@@ -365,10 +263,6 @@ namespace GridExtra
             // グリッドを一度初期化
             grid.RowDefinitions.Clear();
             grid.ColumnDefinitions.Clear();
-
-            // GridEx.RowDefinition/GridEx.ColumnDefinitionの設定内容で、行/列を初期化
-            InitializeRowDefinition(grid, GetRowDefinition(grid));
-            InitializeColumnDefinition(grid, GetColumnDefinition(grid));
 
             if (param != null)
             {
