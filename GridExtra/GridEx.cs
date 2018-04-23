@@ -17,43 +17,8 @@ namespace GridExtra
 
     using LayoutUpdateEventHandler = EventHandler;
 
-    public class AreaDefinition
-    {
-        public int Row { get; set; }
-        public int Column { get; set; }
-        public int RowSpan { get; set; }
-        public int ColumnSpan { get; set; }
-
-        public AreaDefinition(int row, int column, int rowSpan, int columnSpan)
-        {
-            this.Row = row;
-            this.Column = column;
-            this.RowSpan = rowSpan;
-            this.ColumnSpan = columnSpan;
-        }
-    }
-
-    public class NamedAreaDefinition : AreaDefinition
-    {
-        public string Name { get; set; }
-
-        public NamedAreaDefinition(string name, int row, int column, int rowSpan, int columnSpan)
-            : base(row, column, rowSpan, columnSpan)
-        {
-            this.Name = name;
-        }
-    }
-
-    struct GridLengthDefinition
-    {
-        public GridLength GridLength;
-        public double? Min;
-        public double? Max;
-    }
-
     public class GridEx
     {
-
         static GridEx()
         {
             AutoFillChildrenProperty.Changed.Subscribe(GridEx.OnAutoFillChildrenChanged);
@@ -116,7 +81,6 @@ namespace GridExtra
             }
         }
 
-
         private static LayoutUpdateEventHandler CreateLayoutUpdateHandler(Grid grid)
         {
             var prevCount = 0;
@@ -155,10 +119,10 @@ namespace GridExtra
         {
             obj.SetValue(LayoutUpdatedCallbackProperty, value);
         }
+
         // Using a AvaloniaProperty as the backing store for LayoutUpdatedCallback.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<LayoutUpdateEventHandler> LayoutUpdatedCallbackProperty =
             AvaloniaProperty.RegisterAttached<GridEx, Control, LayoutUpdateEventHandler>("LayoutUpdatedCallback", null);
-
 
         private static void AutoFill(Grid grid)
         {
@@ -265,7 +229,6 @@ namespace GridExtra
             }
         }
 
-
         public static string GetColumnDefinition(AvaloniaObject obj)
         {
             return obj.GetValue(ColumnDefinitionProperty);
@@ -274,9 +237,8 @@ namespace GridExtra
         {
             obj.SetValue(ColumnDefinitionProperty, value);
         }
+        
         // Using a AvaloniaProperty as the backing store for ColumnDefinition.  This enables animation, styling, binding, etc...
-        // public static readonly AvaloniaProperty  =
-        //     AvaloniaProperty.RegisterAttached("", typeof(), typeof(GridEx), new PropertyMetadata(null, OnColumnDefinitionChanged));
         public static readonly AvaloniaProperty<string> ColumnDefinitionProperty =
             AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("ColumnDefinition", null);
 
@@ -379,8 +341,6 @@ namespace GridExtra
         // Using a AvaloniaProperty as the backing store for AreaDefinitions.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<IList<NamedAreaDefinition>> AreaDefinitionsProperty =
                     AvaloniaProperty.RegisterAttached<GridEx, Control, IList<NamedAreaDefinition>>("AreaDefinitions", null);
-
-
         public static string GetTemplateArea(AvaloniaObject obj)
         {
             return obj.GetValue(TemplateAreaProperty);
@@ -391,9 +351,7 @@ namespace GridExtra
         }
         // Using a AvaloniaProperty as the backing store for TemplateArea.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<string> TemplateAreaProperty =
-                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("TemplateArea", null);
-
-
+                    AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("TemplateArea", null);
         private static void OnTemplateAreaChanged(AvaloniaPropertyChangedEventArgs e)
         {
             var grid = e.Sender as Grid;
@@ -581,10 +539,6 @@ namespace GridExtra
             obj.SetValue(AreaProperty, value);
         }
         // Using a AvaloniaProperty as the backing store for Area.  This enables animation, styling, binding, etc...
-        // public static readonly AvaloniaProperty  =
-        //     AvaloniaProperty.RegisterAttached("", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnAreaChanged));
-
-
         public static readonly AvaloniaProperty<string> AreaProperty =
                      AvaloniaProperty.RegisterAttached<GridEx, Control, string>("Area", null);
 
@@ -606,8 +560,6 @@ namespace GridExtra
             }
 
             UpdateItemPosition(ctrl);
-
-
 
             var isAutoFill = GetAutoFillChildren(grid);
             if (isAutoFill)
