@@ -226,7 +226,7 @@ namespace GridExtra
                 UpdateItemPosition(child);
             }
         }
- 
+
         // ↓GridEx内部でだけ使用する、プライベートな添付プロパティ
         public static IList<NamedAreaDefinition> GetAreaDefinitions(AvaloniaObject obj)
         {
@@ -247,9 +247,19 @@ namespace GridExtra
         {
             obj.SetValue(TemplateAreaProperty, value);
         }
+
+        private static void ReevalTemplateArea(object sender, VisualTreeAttachmentEventArgs e)
+        {
+            var g = sender as Grid;
+            if (g != null)
+            {
+                InitializeTemplateArea(g, g.GetValue(TemplateAreaProperty));
+            }
+        }
+
         // Using a AvaloniaProperty as the backing store for TemplateArea.  This enables animation, styling, binding, etc...
         public static readonly AvaloniaProperty<string> TemplateAreaProperty =
-                    AvaloniaProperty.RegisterAttached<GridEx, Grid, string>("TemplateArea", null);
+                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("TemplateArea", null);
         private static void OnTemplateAreaChanged(AvaloniaPropertyChangedEventArgs e)
         {
             var grid = e.Sender as Grid;
@@ -259,6 +269,9 @@ namespace GridExtra
             {
                 return;
             }
+
+            grid.AttachedToVisualTree -= ReevalTemplateArea;
+            grid.AttachedToVisualTree += ReevalTemplateArea;
 
             // グリッドを一度初期化
             grid.RowDefinitions.Clear();
@@ -415,7 +428,6 @@ namespace GridExtra
             }
 
             UpdateItemPosition(ctrl);
-
 
             var isAutoFill = GetAutoFillChildren(grid);
             if (isAutoFill)

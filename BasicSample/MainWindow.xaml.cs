@@ -23,18 +23,8 @@ namespace BasicSample
         {
             InitializeComponent();
             this.sampleGrid = this.FindControl<Grid>("grid");
-            this.Activated += MW_Activated;
         }
-
-        private void MW_Activated(object sender, EventArgs e)
-        {
-            var temp = @"
-             Header Header Header/
-            Menu Content SubMenu/
-            Footer Footer Footer/
-";
-            GridExtra.GridEx.SetTemplateArea(sampleGrid, temp);
-        }
+ 
 
         private void InitializeComponent()
         {

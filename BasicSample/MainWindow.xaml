@@ -3,7 +3,12 @@
         xmlns:local="clr-namespace:BasicSample"
         xmlns:ge="clr-namespace:GridExtra;assembly=GridExtra"
         Title="MainWindow" Height="350" Width="525">
-    <Grid Name="grid">
+    <Grid Name="grid"  
+          ge:GridEx.TemplateArea="
+            Header Header Header/
+            Menu Content SubMenu/
+            Footer Footer Footer/
+          ">
         <Button Content="Header"  Margin="5" ge:GridEx.AreaName="Header" />
         <Button Content="Menu"    Margin="5" ge:GridEx.AreaName="Menu" />
         <Button Content="SubMenu" Margin="5" ge:GridEx.AreaName="SubMenu" />
