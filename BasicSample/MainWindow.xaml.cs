@@ -24,12 +24,22 @@ namespace BasicSample
             InitializeComponent();
             this.sampleGrid = this.FindControl<Grid>("grid");
         }
- 
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var temp = @"
+            Header  Header
+            Menu    SubMenu
+            Content Content
+            Footer  Footer
+";
+            GridExtra.GridEx.SetTemplateArea(sampleGrid, temp);
+        }
 
         private void InitializeComponent()
         {
             AvaloniaXamlLoader.Load(this);
         }
- 
+
     }
 }

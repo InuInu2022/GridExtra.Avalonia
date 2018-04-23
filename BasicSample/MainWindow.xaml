@@ -2,8 +2,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:local="clr-namespace:BasicSample"
         xmlns:ge="clr-namespace:GridExtra;assembly=GridExtra"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid Name="grid"  
+        Title="GridEx Example" Height="350" Width="525">
+    <Grid x:Name="grid"
           ge:GridEx.TemplateArea="
             Header Header Header/
             Menu Content SubMenu/
@@ -12,8 +12,7 @@
         <Button Content="Header"  Margin="5" ge:GridEx.AreaName="Header" />
         <Button Content="Menu"    Margin="5" ge:GridEx.AreaName="Menu" />
         <Button Content="SubMenu" Margin="5" ge:GridEx.AreaName="SubMenu" />
+        <Button Content="Content (Click Here)" Margin="5" ge:GridEx.AreaName="Content" Click="Button_Click" />
         <Button Content="Footer"  Margin="5" ge:GridEx.AreaName="Footer" />
-        <Button Content="Content" Margin="5" ge:GridEx.AreaName="Content"/>
-
     </Grid>
 </Window>
