@@ -9,7 +9,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
 
-namespace SourceChord.GridExtra
+namespace GridExtra
 {
 
     [TypeConverter(typeof(SizeThresholdsTypeConverter))]

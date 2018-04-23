@@ -4,26 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-#if WINDOWS_WPF
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-#elif WINDOWS_UWP
-using Windows.Foundation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-#else
-#endif
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Media;
 
 
-namespace SourceChord.GridExtra
+
+
+namespace GridExtra
 {
-#if WINDOWS_WPF
+
     using LayoutUpdateEventHandler = EventHandler;
-#elif WINDOWS_UWP
-    using LayoutUpdateEventHandler = EventHandler<object>;
-#else
-#endif
 
     public class AreaDefinition
     {
@@ -59,36 +51,47 @@ namespace SourceChord.GridExtra
         public double? Max;
     }
 
-    public static class GridEx
+    public class GridEx
     {
-        public static Orientation GetAutoFillOrientation(DependencyObject obj)
+
+        static GridEx()
         {
-            return (Orientation)obj.GetValue(AutoFillOrientationProperty);
+            AutoFillChildrenProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnAutoFillChildrenChanged);
+            ColumnDefinitionProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnColumnDefinitionChanged);
+            RowDefinitionProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnRowDefinitionChanged);
+            TemplateAreaProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnTemplateAreaChanged);
+            AreaNameProperty.Changed.AddClassHandler<GridEx>(p => GridEx.OnAreaNameChanged);
+            AreaProperty.Changed.AddClassHandler<GridEx>(p=> GridEx.OnAreaChanged);
         }
-        public static void SetAutoFillOrientation(DependencyObject obj, Orientation value)
+
+        public static Orientation GetAutoFillOrientation(AvaloniaObject obj)
+        {
+            return obj.GetValue(AutoFillOrientationProperty);
+        }
+        public static void SetAutoFillOrientation(AvaloniaObject obj, Orientation value)
         {
             obj.SetValue(AutoFillOrientationProperty, value);
         }
-        // Using a DependencyProperty as the backing store for AutoFillOrientation.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AutoFillOrientationProperty =
-            DependencyProperty.RegisterAttached("AutoFillOrientation", typeof(Orientation), typeof(GridEx), new PropertyMetadata(Orientation.Horizontal));
+        // Using a AvaloniaProperty as the backing store for AutoFillOrientation.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<Orientation> AutoFillOrientationProperty =
+            AvaloniaProperty.RegisterAttached<GridEx, Control, Orientation>("AutoFillOrientation", Orientation.Horizontal);
 
-
-        public static bool GetAutoFillChildren(DependencyObject obj)
+        public static bool GetAutoFillChildren(AvaloniaObject obj)
         {
-            return (bool)obj.GetValue(AutoFillChildrenProperty);
+            return obj.GetValue(AutoFillChildrenProperty);
         }
-        public static void SetAutoFillChildren(DependencyObject obj, bool value)
+        public static void SetAutoFillChildren(AvaloniaObject obj, bool value)
         {
             obj.SetValue(AutoFillChildrenProperty, value);
         }
-        // Using a DependencyProperty as the backing store for AutoFillChildren.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AutoFillChildrenProperty =
-            DependencyProperty.RegisterAttached("AutoFillChildren", typeof(bool), typeof(GridEx), new PropertyMetadata(false, OnAutoFillChildrenChanged));
+       
+        // Using a AvaloniaProperty as the backing store for AutoFillChildren.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<bool> AutoFillChildrenProperty =
+            AvaloniaProperty.RegisterAttached<GridEx, Control, bool>("AutoFillChildren", false);
 
-        private static void OnAutoFillChildrenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAutoFillChildrenChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var grid = d as Grid;
+            var grid = e.Sender as Grid;
             var isEnabled = (bool)e.NewValue;
             if (grid == null) { return; }
 
@@ -121,6 +124,11 @@ namespace SourceChord.GridExtra
             var prevRow = grid.RowDefinitions.Count;
             var prevOrientation = GetAutoFillOrientation(grid);
 
+            
+            grid.LayoutUpdated += (i,o)=>
+            {
+
+            };
             var layoutUpdateCallback = new LayoutUpdateEventHandler((sender, args) =>
             {
                 var count = grid.Children.Count;
@@ -144,17 +152,17 @@ namespace SourceChord.GridExtra
             return layoutUpdateCallback;
         }
 
-        public static LayoutUpdateEventHandler GetLayoutUpdatedCallback(DependencyObject obj)
+        public static LayoutUpdateEventHandler GetLayoutUpdatedCallback(AvaloniaObject obj)
         {
-            return (LayoutUpdateEventHandler)obj.GetValue(LayoutUpdatedCallbackProperty);
+            return obj.GetValue(LayoutUpdatedCallbackProperty);
         }
-        private static void SetLayoutUpdatedCallback(DependencyObject obj, LayoutUpdateEventHandler value)
+        private static void SetLayoutUpdatedCallback(AvaloniaObject obj, LayoutUpdateEventHandler value)
         {
             obj.SetValue(LayoutUpdatedCallbackProperty, value);
         }
-        // Using a DependencyProperty as the backing store for LayoutUpdatedCallback.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty LayoutUpdatedCallbackProperty =
-            DependencyProperty.RegisterAttached("LayoutUpdatedCallback", typeof(LayoutUpdateEventHandler), typeof(GridEx), new PropertyMetadata(null));
+        // Using a AvaloniaProperty as the backing store for LayoutUpdatedCallback.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<LayoutUpdateEventHandler> LayoutUpdatedCallbackProperty =
+            AvaloniaProperty.RegisterAttached<GridEx, Control, LayoutUpdateEventHandler>("LayoutUpdatedCallback", null);
 
 
         private static void AutoFill(Grid grid)
@@ -168,9 +176,9 @@ namespace SourceChord.GridExtra
 
             var area = new bool[rowCount, columnCount];
 
-            var autoLayoutList = new List<FrameworkElement>();
+            var autoLayoutList = new List<Control>();
             // Grid内の位置固定要素のチェック
-            foreach (FrameworkElement child in grid.Children)
+            foreach (Control child in grid.Children)
             {
                 // AreaName ⇒ Areaの優先順位で、グリッド位置の設定を行う
                 var region = GetAreaNameRegion(child) ?? GetAreaRegion(child);
@@ -204,10 +212,10 @@ namespace SourceChord.GridExtra
             var isHorizontal = orientation == Orientation.Horizontal;
             var isOverflow = false;
             // Gridの子要素を、順番にGrid内に並べていく
-            foreach (FrameworkElement child in autoLayoutList)
+            foreach (Control child in autoLayoutList)
             {
                 // Visibility.Collapsedの項目は除外する
-                if (child.Visibility == Visibility.Collapsed)
+                if (child.IsVisible == false)
                 {
                     continue;
                 }
@@ -245,7 +253,7 @@ namespace SourceChord.GridExtra
 
         private static void ClearAutoFill(Grid grid)
         {
-            foreach (FrameworkElement child in grid.Children)
+            foreach (Control child in grid.Children)
             {
                 child.ClearValue(Grid.RowProperty);
                 child.ClearValue(Grid.ColumnProperty);
@@ -257,21 +265,23 @@ namespace SourceChord.GridExtra
         }
 
 
-        public static string GetColumnDefinition(DependencyObject obj)
+        public static string GetColumnDefinition(AvaloniaObject obj)
         {
-            return (string)obj.GetValue(ColumnDefinitionProperty);
+            return obj.GetValue(ColumnDefinitionProperty);
         }
-        public static void SetColumnDefinition(DependencyObject obj, string value)
+        public static void SetColumnDefinition(AvaloniaObject obj, string value)
         {
             obj.SetValue(ColumnDefinitionProperty, value);
         }
-        // Using a DependencyProperty as the backing store for ColumnDefinition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty ColumnDefinitionProperty =
-            DependencyProperty.RegisterAttached("ColumnDefinition", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnColumnDefinitionChanged));
+        // Using a AvaloniaProperty as the backing store for ColumnDefinition.  This enables animation, styling, binding, etc...
+        // public static readonly AvaloniaProperty  =
+        //     AvaloniaProperty.RegisterAttached("", typeof(), typeof(GridEx), new PropertyMetadata(null, OnColumnDefinitionChanged));
+        public static readonly AvaloniaProperty<string> ColumnDefinitionProperty =
+            AvaloniaProperty.RegisterAttached<GridEx, Control, string>("ColumnDefinition", null);
 
-        private static void OnColumnDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnColumnDefinitionChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var grid = d as Grid;
+            var grid = e.Sender as Grid;
             var param = e.NewValue as string;
 
             InitializeColumnDefinition(grid, param);
@@ -305,21 +315,24 @@ namespace SourceChord.GridExtra
             }
         }
 
-        public static string GetRowDefinition(DependencyObject obj)
+        public static string GetRowDefinition(AvaloniaObject obj)
         {
-            return (string)obj.GetValue(RowDefinitionProperty);
+            return obj.GetValue(RowDefinitionProperty);
         }
-        public static void SetRowDefinition(DependencyObject obj, string value)
+        public static void SetRowDefinition(AvaloniaObject obj, string value)
         {
             obj.SetValue(RowDefinitionProperty, value);
         }
-        // Using a DependencyProperty as the backing store for RowDefinition.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty RowDefinitionProperty =
-            DependencyProperty.RegisterAttached("RowDefinition", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnRowDefinitionChanged));
+    
+        // Using a AvaloniaProperty as the backing store for RowDefinition.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<string> RowDefinitionProperty =
+            AvaloniaProperty.RegisterAttached<GridEx, Control, string>("RowDefinition", null);
 
-        private static void OnRowDefinitionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+
+        private static void OnRowDefinitionChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var grid = d as Grid;
+            var grid = e.Sender as Grid;
             var param = e.NewValue as string;
 
             InitializeRowDefinition(grid, param);
@@ -354,38 +367,38 @@ namespace SourceChord.GridExtra
         }
 
         // ↓GridEx内部でだけ使用する、プライベートな添付プロパティ
-        public static IList<NamedAreaDefinition> GetAreaDefinitions(DependencyObject obj)
+        public static IList<NamedAreaDefinition> GetAreaDefinitions(AvaloniaObject obj)
         {
-            return (IList<NamedAreaDefinition>)obj.GetValue(AreaDefinitionsProperty);
+            return obj.GetValue(AreaDefinitionsProperty);
         }
-        private static void SetAreaDefinitions(DependencyObject obj, IList<NamedAreaDefinition> value)
+        private static void SetAreaDefinitions(AvaloniaObject obj, IList<NamedAreaDefinition> value)
         {
             obj.SetValue(AreaDefinitionsProperty, value);
         }
-        // Using a DependencyProperty as the backing store for AreaDefinitions.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AreaDefinitionsProperty =
-            DependencyProperty.RegisterAttached("AreaDefinitions", typeof(IList<NamedAreaDefinition>), typeof(GridEx), new PropertyMetadata(null));
+        // Using a AvaloniaProperty as the backing store for AreaDefinitions.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<IList<NamedAreaDefinition>> AreaDefinitionsProperty =
+                    AvaloniaProperty.RegisterAttached<GridEx, Control, IList<NamedAreaDefinition>>("AreaDefinitions", null);
 
 
-
-        public static string GetTemplateArea(DependencyObject obj)
+        public static string GetTemplateArea(AvaloniaObject obj)
         {
-            return (string)obj.GetValue(TemplateAreaProperty);
+            return obj.GetValue(TemplateAreaProperty);
         }
-        public static void SetTemplateArea(DependencyObject obj, string value)
+        public static void SetTemplateArea(AvaloniaObject obj, string value)
         {
             obj.SetValue(TemplateAreaProperty, value);
         }
-        // Using a DependencyProperty as the backing store for TemplateArea.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty TemplateAreaProperty =
-            DependencyProperty.RegisterAttached("TemplateArea", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnTemplateAreaChanged));
+        // Using a AvaloniaProperty as the backing store for TemplateArea.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<string> TemplateAreaProperty =
+                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("TemplateArea", null);
 
-        private static void OnTemplateAreaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+        private static void OnTemplateAreaChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var grid = d as Grid;
+            var grid = e.Sender as Grid;
             var param = e.NewValue as string;
 
-            if (d == null)
+            if (grid == null)
             {
                 return;
             }
@@ -441,7 +454,7 @@ namespace SourceChord.GridExtra
 
             // 全体レイアウトの定義が変わったので、
             // Gridの子要素のすべてのRegion設定を反映しなおす
-            foreach (FrameworkElement child in grid.Children)
+            foreach (Control child in grid.Children)
             {
                 UpdateItemPosition(child);
             }
@@ -503,79 +516,35 @@ namespace SourceChord.GridExtra
             return result;
         }
 
-#if WINDOWS_WPF
+
         private static GridLength StringToGridLength(string source)
         {
             var glc = TypeDescriptor.GetConverter(typeof(GridLength));
             return (GridLength)glc.ConvertFromString(source);
         }
-#elif WINDOWS_UWP
-        private static GridLength StringToGridLength(string source)
-        {
-            GridLength gridLength;
-            if (source.ToLower() == "auto")
-            {
-                gridLength = new GridLength(0.0, GridUnitType.Auto);
-            }
-            else
-            {
-                var r = new System.Text.RegularExpressions.Regex(@"([\d\.]*)(\*?)");
-                var m = r.Match(source);
 
-                var val = m.Groups[1].Value;
-                var unit = m.Groups[2].Value;
 
-                double size;
-                var isValid = double.TryParse(val, out size);
-
-                if (unit == "*")
-                {
-                    if (string.IsNullOrEmpty(val))
-                    {
-                        gridLength = new GridLength(1, GridUnitType.Star);
-                    }
-                    else
-                    {
-                        if (!isValid) { throw new ArgumentException(); }
-                        gridLength = new GridLength(size, GridUnitType.Star);
-                    }
-                }
-                else if (string.IsNullOrEmpty(unit))
-                {
-                    if (!isValid) { throw new ArgumentException(); ; }
-                    gridLength = new GridLength(size, GridUnitType.Pixel);
-                }
-                else
-                {
-                    // 変換失敗
-                    throw new ArgumentException();
-                }
-            }
-
-            return gridLength;
-        }
-#else
-#endif
 
 
         //=====================================================================
         // Grid内の子要素に適用するための添付プロパティ類
         //=====================================================================
-        public static string GetAreaName(DependencyObject obj)
+        public static string GetAreaName(AvaloniaObject obj)
         {
-            return (string)obj.GetValue(AreaNameProperty);
+            return obj.GetValue(AreaNameProperty);
         }
-        public static void SetAreaName(DependencyObject obj, string value)
+        public static void SetAreaName(AvaloniaObject obj, string value)
         {
             obj.SetValue(AreaNameProperty, value);
         }
-        // Using a DependencyProperty as the backing store for AreaName.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AreaNameProperty =
-            DependencyProperty.RegisterAttached("AreaName", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnAreaNameChanged));
 
-        private static void OnAreaNameChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        // Using a AvaloniaProperty as the backing store for AreaName.  This enables animation, styling, binding, etc...
+        public static readonly AvaloniaProperty<string> AreaNameProperty =
+                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("AreaName", null);
+
+        private static void OnAreaNameChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var ctrl = d as FrameworkElement;
+            var ctrl = e.Sender as Control;
 
             if (ctrl == null)
             {
@@ -593,23 +562,27 @@ namespace SourceChord.GridExtra
             }
         }
 
-        public static string GetArea(DependencyObject obj)
+        public static string GetArea(AvaloniaObject obj)
         {
             return (string)obj.GetValue(AreaProperty);
         }
-        public static void SetArea(DependencyObject obj, string value)
+        public static void SetArea(AvaloniaObject obj, string value)
         {
             obj.SetValue(AreaProperty, value);
         }
-        // Using a DependencyProperty as the backing store for Area.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AreaProperty =
-            DependencyProperty.RegisterAttached("Area", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnAreaChanged));
+        // Using a AvaloniaProperty as the backing store for Area.  This enables animation, styling, binding, etc...
+        // public static readonly AvaloniaProperty  =
+        //     AvaloniaProperty.RegisterAttached("", typeof(string), typeof(GridEx), new PropertyMetadata(null, OnAreaChanged));
 
-        private static void OnAreaChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+
+       public static readonly AvaloniaProperty<string> AreaProperty =
+                    AvaloniaProperty.RegisterAttached<GridEx, Control, string>("Area", null);
+
+        private static void OnAreaChanged(AvaloniaPropertyChangedEventArgs e)
         {
-            var ctrl = d as FrameworkElement;
+            var ctrl = e.Sender as Control;
 
-            if (d == null)
+            if (ctrl == null)
             {
                 return;
             }
@@ -631,7 +604,7 @@ namespace SourceChord.GridExtra
         }
 
 
-        private static void UpdateItemPosition(FrameworkElement element)
+        private static void UpdateItemPosition(Control element)
         {
             // AreaName ⇒ Areaの優先順位で、グリッド位置の設定を行う
             var area = GetAreaNameRegion(element) ?? GetAreaRegion(element);
@@ -645,7 +618,7 @@ namespace SourceChord.GridExtra
         }
 
 
-        private static AreaDefinition GetAreaNameRegion(FrameworkElement element)
+        private static AreaDefinition GetAreaNameRegion(Control element)
         {
             var name = GetAreaName(element);
             var grid = element.Parent as Grid;
@@ -659,7 +632,7 @@ namespace SourceChord.GridExtra
             return new AreaDefinition(area.Row, area.Column, area.RowSpan, area.ColumnSpan);
         }
 
-        private static AreaDefinition GetAreaRegion(FrameworkElement element)
+        private static AreaDefinition GetAreaRegion(Control element)
         {
             var param = GetArea(element);
             if (param == null) { return null; }

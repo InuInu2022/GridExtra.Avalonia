@@ -1,7 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Markup.Xaml;
+using Avalonia.Logging.Serilog;
+using Avalonia.Logging;
 
-namespace BasicSample.Wpf
+namespace BasicSample
 {
     /// <summary>
     /// App.xaml の相互作用ロジック
@@ -21,7 +23,8 @@ namespace BasicSample.Wpf
         public static AppBuilder BuildAvaloniaApp()
             => AppBuilder.Configure<App>()
                 .UsePlatformDetect()
-                .UseReactiveUI();
+                .UseReactiveUI()
+                .LogToDebug(LogEventLevel.Verbose);
 
     }
 }

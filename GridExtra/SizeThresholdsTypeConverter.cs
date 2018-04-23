@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SourceChord.GridExtra
+namespace GridExtra
 {
     public class SizeThresholdsTypeConverter : TypeConverter
     {

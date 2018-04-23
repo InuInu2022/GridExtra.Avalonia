@@ -25,12 +25,12 @@ Add xmlns to xaml code.
 
 #### For WPF
 ```xml
-xmlns:ge="clr-namespace:SourceChord.GridExtra;assembly=GridExtra.Wpf"
+xmlns:ge="clr-namespace:GridExtra;assembly=GridExtra.Wpf"
 ```
 
 #### For UWP
 ```xml
-xmlns:ge="using:SourceChord.GridExtra"
+xmlns:ge="using:GridExtra"
 ```
 
 
