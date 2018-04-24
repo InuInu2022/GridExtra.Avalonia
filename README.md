@@ -1,6 +1,6 @@
 # GridExtra.Avalonia
 GridExtra is a custom grid library for AvaloniaUI ported from the [Original GridExtra](https://github.com/sourcechord/GridExtra).
-
+[![NuGet Status](http://nugetstatus.com/GridExtra.Avalonia.png)](http://nugetstatus.com/packages/GridExtra.Avalonia)
 
 * ResponsiveGrid
     * Custom Grid Control that provides Bootstrap-like grid system.
