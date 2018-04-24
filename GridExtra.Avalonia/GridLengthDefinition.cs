@@ -2,7 +2,7 @@
 
 using Avalonia.Controls;
 
-namespace GridExtra
+namespace GridExtra.Avalonia
 {
     struct GridLengthDefinition
     {

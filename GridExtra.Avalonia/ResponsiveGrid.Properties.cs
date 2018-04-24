@@ -5,7 +5,7 @@ using System.Text;
 using Avalonia;
 using Avalonia.Controls;
 
-namespace GridExtra
+namespace GridExtra.Avalonia
 {
     public partial class ResponsiveGrid
     {

@@ -33,7 +33,7 @@ namespace GridExSample
             Content Content
             Footer  Footer
 ";
-            GridExtra.GridEx.SetTemplateArea(sampleGrid, temp);
+            GridExtra.Avalonia.GridEx.SetTemplateArea(sampleGrid, temp);
         }
 
         private void InitializeComponent()

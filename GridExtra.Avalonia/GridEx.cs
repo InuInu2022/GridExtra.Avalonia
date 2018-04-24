@@ -10,7 +10,7 @@ using Avalonia.Media;
 using System.Diagnostics;
 using Avalonia.Metadata;
 
-namespace GridExtra
+namespace GridExtra.Avalonia
 {
     public class GridEx : Control
     {

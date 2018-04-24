@@ -1,6 +1,6 @@
 
 
-namespace GridExtra
+namespace GridExtra.Avalonia
 {
     public class NamedAreaDefinition : AreaDefinition
     {

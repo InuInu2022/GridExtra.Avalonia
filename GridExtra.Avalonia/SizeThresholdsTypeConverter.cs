@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GridExtra
+namespace GridExtra.Avalonia
 {
     public class SizeThresholdsTypeConverter : TypeConverter
     {
