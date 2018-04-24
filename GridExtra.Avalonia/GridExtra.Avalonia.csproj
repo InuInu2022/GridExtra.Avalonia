@@ -1,8 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <Version>0.6.1</Version>
+    <Authors>jmacato;SourceChord</Authors>
+    <Owners>jmacato</Owners>
+    <LicenseUrl>https://github.com/jmacato/GridExtra/blob/master/LICENSE</LicenseUrl>
+    <ProjectUrl>https://github.com/sourcechord/GridExtra</ProjectUrl>
+    <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+    <Description>Responsive grid extensions for AvaloniaUI.</Description>
+    <Copyright>Copyright © 2018 Jumar Macato</Copyright>
+    <Tags>Avalonia AvaloniaUI Grid Panel Responsive Library</Tags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
@@ -11,7 +20,6 @@
     <EmbeddedResource Include="**\*.xaml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Assets\*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.6.1" />
