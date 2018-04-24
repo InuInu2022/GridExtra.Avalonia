@@ -10,7 +10,12 @@
     <Authors>jmacato;minami_SC</Authors>
     <Owners>jmacato</Owners>
     <PackageLicenseUrl>https://github.com/jmacato/GridExtra.Avalonia/blob/master/LICENSE</PackageLicenseUrl>
+<<<<<<< HEAD
     <PackageProjectUrl>https://github.com/jmacato/GridExtra.Avalonia</PackageProjectUrl>
+=======
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/jmacato/GridExtra.Avalonia</RepositoryUrl>
+>>>>>>> 9ea07c9423ce0ea994efcb9140d505b30656d594
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Responsive grid extensions for AvaloniaUI.</Description>
     <Copyright>Copyright © 2018 Jumar Macato</Copyright>
