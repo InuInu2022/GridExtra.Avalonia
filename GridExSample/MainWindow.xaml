@@ -12,7 +12,7 @@
         <Button Content="Header"  Margin="5" ge:GridEx.AreaName="Header" />
         <Button Content="Menu"    Margin="5" ge:GridEx.AreaName="Menu" />
         <Button Content="SubMenu" Margin="5" ge:GridEx.AreaName="SubMenu" />
-        <Button Content="Content (Click Here)" Margin="5" ge:GridEx.AreaName="Content" Click="Button_Click" />
+        <Button Content="Content (Click Here)" Margin="5" ge:GridEx.AreaName="Content" Click="Change1_Click" />
         <Button Content="Footer"  Margin="5" ge:GridEx.AreaName="Footer" />
     </Grid>
 </Window>

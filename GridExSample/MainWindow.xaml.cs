@@ -10,7 +10,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
 
-namespace BasicSample
+namespace GridExSample
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック

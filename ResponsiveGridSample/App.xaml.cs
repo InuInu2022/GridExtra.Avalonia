@@ -3,7 +3,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Logging.Serilog;
 using Avalonia.Logging;
 
-namespace BasicSample
+namespace ResponsiveGridSample
 {
     /// <summary>
     /// App.xaml の相互作用ロジック
