@@ -5,9 +5,8 @@ GridExtra is a custom grid library for AvaloniaUI ported from the [Original Grid
 
 * ResponsiveGrid
     * Custom Grid Control that provides Bootstrap-like grid system.
-    * Grid System
-        * Reacts to changes in container's layout and propagates to its children.
-            * XS(<768px), SM(<992px), MD(<1200px), LG(1200px<=)
+    * Reacts to changes in container's layout and propagates to its children.
+        * XS(<768px), SM(<992px), MD(<1200px), LG(1200px<=)
         * 12 columns across the page.(customizable with MaxDivision property)
 * GridEx
     * Extensions class that defines useful attached properties for Grid Controls.
