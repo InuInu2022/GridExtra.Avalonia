@@ -1,7 +1,6 @@
 ﻿<Window xmlns="https://github.com/avaloniaui" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-        xmlns:local="clr-namespace:BasicSample"
-        xmlns:ge="clr-namespace:GridExtra;assembly=GridExtra"
+        xmlns:ge="clr-namespace:GridExtra.Avalonia;assembly=GridExtra.Avalonia"
         Title="GridEx Example" Height="350" Width="525">
     <Grid x:Name="grid"
           ge:GridEx.TemplateArea="

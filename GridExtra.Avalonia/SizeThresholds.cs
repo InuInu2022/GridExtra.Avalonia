@@ -21,7 +21,7 @@ namespace GridExtra.Avalonia
             set { SetValue(XS_SMProperty, value); }
         }
         // Using a AvaloniaProperty as the backing store for XS_SM.  This enables animation, styling, binding, etc...
-        public static readonly Avalonia.AvaloniaProperty<double> XS_SMProperty =
+        public static readonly AvaloniaProperty<double> XS_SMProperty =
             AvaloniaProperty.Register<SizeThresholds, double>(nameof(XS_SM), 768.0);
 
         public double SM_MD
