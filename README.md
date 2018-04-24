@@ -1,18 +1,17 @@
-# GridExtra
-GridExtra is a custom panel library for WPF/UWP.
+# GridExtra.Avalonia
+GridExtra is a custom grid library for AvaloniaUI ported from the [Original GridExtra](https://github.com/sourcechord/GridExtra).
 
 
 * ResponsiveGrid
-    * Custom Panel class that provides bootstrap like grid system.
+    * Custom Panel class that provides Bootstrap-like grid system.
     * Grid system
         * switch layout with window width.
             * XS(<768px), SM(<992px), MD(<1200px), LG(1200px<=)
         * 12 columns across the page.(customizable with MaxDivision property)
 * GridEx
     * Helper class that defines usefull attached properties for Grid panel.
-* WrapPanelEx
-    * Helper class that provide adaptive layout for WrapPanel.
 
+<!--  
 ## install
 *Nuget Package*  
 ```
@@ -372,4 +371,4 @@ WrapPanelEx.AdaptiveLayout property makes WrapPanel into UWP Community Toolkit's
 ```
 
 ## Lisence
-[MIT](LICENSE)
+[MIT](LICENSE) -->
