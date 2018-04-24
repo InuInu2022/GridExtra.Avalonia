@@ -3,15 +3,18 @@
     <OutputType>Library</OutputType>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
+    <AssemblyTitle>GridExtra.Avalonia</AssemblyTitle>
+    <RootNamespace>GridExtra.Avalonia</RootNamespace>
     <Version>0.6.1</Version>
-    <Authors>jmacato;SourceChord</Authors>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Authors>jmacato;minami_SC</Authors>
     <Owners>jmacato</Owners>
-    <LicenseUrl>https://github.com/jmacato/GridExtra/blob/master/LICENSE</LicenseUrl>
-    <ProjectUrl>https://github.com/sourcechord/GridExtra</ProjectUrl>
-    <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
+    <PackageLicenseUrl>https://github.com/jmacato/GridExtra.Avalonia/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/jmacato/GridExtra.Avalonia</PackageProjectUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Responsive grid extensions for AvaloniaUI.</Description>
     <Copyright>Copyright © 2018 Jumar Macato</Copyright>
-    <Tags>Avalonia AvaloniaUI Grid Panel Responsive Library</Tags>
+    <PackageTags>Avalonia AvaloniaUI Grid Panel Responsive Library</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
