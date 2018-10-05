@@ -11,7 +11,7 @@ namespace GridExtra.Avalonia
     {
         static ResponsiveGrid()
         {
-            AffectsMeasure(MaxDivisionProperty, 
+            AffectsMeasure<ResponsiveGrid>(MaxDivisionProperty, 
                            BreakPointsProperty,
                            XSProperty,
                            SMProperty,

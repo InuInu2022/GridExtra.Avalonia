@@ -19,7 +19,7 @@ namespace GridExtra.Avalonia
             TemplateAreaProperty.Changed.Subscribe(GridEx.OnTemplateAreaChanged);
             AreaNameProperty.Changed.Subscribe(GridEx.OnAreaNameChanged);
             AreaProperty.Changed.Subscribe(GridEx.OnAreaChanged);
-            AffectsMeasure(TemplateAreaProperty);
+            AffectsMeasure<GridEx>(TemplateAreaProperty);
         }
 
         public static IList<NamedAreaDefinition> GetAreaDefinitions(AvaloniaObject obj)
