@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <RootNamespace>GridExtra.Avalonia</RootNamespace>
-    <Version>0.6.1</Version>
+    <Version>0.8.3</Version>
     <PackageNeutralLanguage>en</PackageNeutralLanguage>
     <Authors>jmacato;minami_SC</Authors>
     <Owners>jmacato</Owners>
