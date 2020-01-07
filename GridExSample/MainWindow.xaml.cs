@@ -25,14 +25,14 @@ namespace GridExSample
             this.sampleGrid = this.FindControl<Grid>("grid");
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public void Button_Click(object sender, RoutedEventArgs e)
         {
             var temp = @"
             Header  Header
             Menu    SubMenu
             Content Content
-            Footer  Footer
-";
+            Footer  Footer";
+
             GridExtra.Avalonia.GridEx.SetTemplateArea(sampleGrid, temp);
         }
 
@@ -40,6 +40,5 @@ namespace GridExSample
         {
             AvaloniaXamlLoader.Load(this);
         }
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿<Window xmlns="https://github.com/avaloniaui" 
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
         xmlns:ge="clr-namespace:GridExtra.Avalonia;assembly=GridExtra.Avalonia"
+        x:Class="GridExSample.MainWindow"
         Title="GridEx Example" Height="350" Width="525">
     <Grid x:Name="grid"
           ge:GridEx.TemplateArea="
@@ -11,7 +12,7 @@
         <Button Content="Header"  Margin="5" ge:GridEx.AreaName="Header" />
         <Button Content="Menu"    Margin="5" ge:GridEx.AreaName="Menu" />
         <Button Content="SubMenu" Margin="5" ge:GridEx.AreaName="SubMenu" />
-        <Button Content="Content (Click Here)" Margin="5" ge:GridEx.AreaName="Content" Click="Change1_Click" />
+        <Button Content="Content (Click Here)" Margin="5" ge:GridEx.AreaName="Content" Click="Button_Click" />
         <Button Content="Footer"  Margin="5" ge:GridEx.AreaName="Footer" />
     </Grid>
 </Window>

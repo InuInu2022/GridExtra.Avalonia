@@ -1,18 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <RootNamespace>GridExtra.Avalonia</RootNamespace>
-    <Version>0.8.3</Version>
+    <Version>0.9.1</Version>
     <PackageNeutralLanguage>en</PackageNeutralLanguage>
     <Authors>jmacato;minami_SC</Authors>
     <Owners>jmacato</Owners>
-    <PackageLicenseUrl>https://github.com/jmacato/GridExtra.Avalonia/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicense>https://github.com/jmacato/GridExtra.Avalonia/blob/master/LICENSE</PackageLicense>
     <PackageProjectUrl>https://github.com/jmacato/GridExtra.Avalonia</PackageProjectUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Responsive grid extensions for AvaloniaUI.</Description>
-    <Copyright>Copyright © 2018 Jumar Macato</Copyright>
+    <Copyright>Copyright © 2020 Jumar Macato</Copyright>
     <PackageTags>Avalonia AvaloniaUI Grid Panel Responsive Library</PackageTags>
   </PropertyGroup>
   <ItemGroup>
@@ -24,8 +24,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.6.2-build*" />
-    <PackageReference Include="Avalonia.ReactiveUI" Version="0.6.2-build*" />
-    <PackageReference Include="Avalonia.Desktop" Version="0.6.2-build*" />
+    <PackageReference Include="Avalonia" Version="0.9.1" /> 
   </ItemGroup>
 </Project>
