@@ -17,7 +17,7 @@ namespace GridExtra.Avalonia
     {
         public double XS_SM
         {
-            get { return GetValue(XS_SMProperty); }
+            get { return (double)GetValue(XS_SMProperty); }
             set { SetValue(XS_SMProperty, value); }
         }
         // Using a AvaloniaProperty as the backing store for XS_SM.  This enables animation, styling, binding, etc...
@@ -26,7 +26,7 @@ namespace GridExtra.Avalonia
 
         public double SM_MD
         {
-            get { return GetValue(SM_MDProperty); }
+            get { return (double)GetValue(SM_MDProperty); }
             set { SetValue(SM_MDProperty, value); }
         }
 
@@ -37,7 +37,7 @@ namespace GridExtra.Avalonia
 
         public double MD_LG
         {
-            get { return GetValue(MD_LGProperty); }
+            get { return (double)GetValue(MD_LGProperty); }
             set { SetValue(MD_LGProperty, value); }
         }
         // Using a DependencyProperty as the backing store for MD_LG.  This enables animation, styling, binding, etc... 

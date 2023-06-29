@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
     <RootNamespace>GridExtra.Avalonia</RootNamespace>
-    <Version>0.9.1</Version>
+    <Version>$(Version)</Version>
     <PackageNeutralLanguage>en</PackageNeutralLanguage>
     <Authors>jmacato;minami_SC</Authors>
     <Owners>jmacato</Owners>
@@ -24,6 +24,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="0.9.1" /> 
+    <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
+    <PackageReference Include="System.Reactive" Version="6.0.0" /> 
   </ItemGroup>
 </Project>

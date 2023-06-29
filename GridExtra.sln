@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridExSample", "GridExSample\GridExSample.csproj", "{F7111B8C-830B-431F-A517-C743C3D38D65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridExSample", "GridExSample\GridExSample.csproj", "{F7111B8C-830B-431F-A517-C743C3D38D65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GridExtra.Avalonia", "GridExtra.Avalonia\GridExtra.Avalonia.csproj", "{F577ED4E-1E63-4701-A32E-98E3104CDAFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GridExtra.Avalonia", "GridExtra.Avalonia\GridExtra.Avalonia.csproj", "{F577ED4E-1E63-4701-A32E-98E3104CDAFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResponsiveGridSample", "ResponsiveGridSample\ResponsiveGridSample.csproj", "{75CB8E76-D781-47B5-9225-B5C415152E5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResponsiveGridSample", "ResponsiveGridSample\ResponsiveGridSample.csproj", "{75CB8E76-D781-47B5-9225-B5C415152E5C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A923D34C-BBB0-45F4-8795-2BD4360FD8E9}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,9 +22,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F7111B8C-830B-431F-A517-C743C3D38D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -58,5 +60,11 @@ Global
 		{75CB8E76-D781-47B5-9225-B5C415152E5C}.Release|x64.Build.0 = Release|Any CPU
 		{75CB8E76-D781-47B5-9225-B5C415152E5C}.Release|x86.ActiveCfg = Release|Any CPU
 		{75CB8E76-D781-47B5-9225-B5C415152E5C}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48D4B907-2AB5-4B57-B531-00F1AC85FE68}
 	EndGlobalSection
 EndGlobal
