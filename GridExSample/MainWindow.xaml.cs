@@ -1,44 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 
+namespace GridExSample;
 
-namespace GridExSample
+/// <summary>
+/// MainWindow.xaml の相互作用ロジック
+/// </summary>
+public class MainWindow : Window
 {
-    /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
-    /// </summary>
-    public class MainWindow : Window
+    private Grid sampleGrid;
+    private string newTempArea = @"
+        Header  Header
+        Menu    SubMenu
+        Content Content
+        Footer  Footer";
+    private string oldTempArea = "";
+
+    public MainWindow()
     {
-        private Grid sampleGrid;
+        InitializeComponent();
+        this.sampleGrid = this.FindControl<Grid>("grid");
+    }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.sampleGrid = this.FindControl<Grid>("grid");
-        }
+    public void Button_Click(object sender, RoutedEventArgs e)
+    {
+        oldTempArea = GridExtra.Avalonia.GridEx.GetTemplateArea(sampleGrid);
+        
+        GridExtra.Avalonia.GridEx.SetTemplateArea(sampleGrid, newTempArea);
 
-        public void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var temp = @"
-            Header  Header
-            Menu    SubMenu
-            Content Content
-            Footer  Footer";
+        newTempArea = oldTempArea;
+    }
 
-            GridExtra.Avalonia.GridEx.SetTemplateArea(sampleGrid, temp);
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-        }
+    private void InitializeComponent()
+    {
+        AvaloniaXamlLoader.Load(this);
     }
 }

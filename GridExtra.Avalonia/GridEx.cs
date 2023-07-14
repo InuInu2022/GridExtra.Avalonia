@@ -24,7 +24,7 @@ namespace GridExtra.Avalonia
 
         public static IList<NamedAreaDefinition> GetAreaDefinitions(AvaloniaObject obj)
         {
-            return obj.GetValue(AreaDefinitionsProperty);
+            return (IList<NamedAreaDefinition>)obj.GetValue(AreaDefinitionsProperty);
         }
 
         private static void SetAreaDefinitions(AvaloniaObject obj, IList<NamedAreaDefinition> value)
@@ -37,7 +37,7 @@ namespace GridExtra.Avalonia
 
         public static string GetTemplateArea(AvaloniaObject obj)
         {
-            return obj.GetValue(TemplateAreaProperty);
+            return (string)obj.GetValue(TemplateAreaProperty);
         }
 
         public static void SetTemplateArea(AvaloniaObject obj, string value)
@@ -50,7 +50,7 @@ namespace GridExtra.Avalonia
             var g = sender as Grid;
             if (g != null)
             {
-                InitializeTemplateArea(g, g.GetValue(TemplateAreaProperty));
+                InitializeTemplateArea(g, (string)g.GetValue(TemplateAreaProperty));
             }
         }
 
@@ -180,7 +180,7 @@ namespace GridExtra.Avalonia
 
         public static string GetAreaName(AvaloniaObject obj)
         {
-            return obj.GetValue(AreaNameProperty);
+            return (string)obj.GetValue(AreaNameProperty);
         }
         public static void SetAreaName(AvaloniaObject obj, string value)
         {
@@ -210,7 +210,7 @@ namespace GridExtra.Avalonia
 
         public static string GetArea(AvaloniaObject obj)
         {
-            return obj.GetValue(AreaProperty);
+            return (string)obj.GetValue(AreaProperty);
         }
         public static void SetArea(AvaloniaObject obj, string value)
         {

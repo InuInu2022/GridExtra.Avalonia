@@ -1,43 +1,50 @@
-﻿<Window 
-  xmlns="https://github.com/avaloniaui" 
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-  xmlns:ge="clr-namespace:GridExtra.Avalonia;assembly=GridExtra.Avalonia"
-  x:Class="ResponsiveGridSample.MainWindow"
-  Title="ResponsiveGrid Example" Height="350" Width="525">
-  <Grid>
-    <Grid.Styles>
-      <Style Selector="Border.Common">
-        <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="Background" Value="LightGray" />
-        <Setter Property="Height" Value="60" />
-      </Style>
-      <Style Selector="Border.Header">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
-      </Style>
-      <Style Selector="Border.Section1">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="6" />
-        <Setter Property="ge:ResponsiveGrid.SM" Value="3" />
-        <Setter Property="ge:ResponsiveGrid.MD" Value="2" />
-      </Style>
-      <Style Selector="Border.Section2">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
-        <Setter Property="ge:ResponsiveGrid.SM" Value="6" />
-        <Setter Property="ge:ResponsiveGrid.MD" Value="2" />
-      </Style>
-      <Style Selector="Border.Footer">
-        <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
-      </Style>
-    </Grid.Styles>
-    <ge:ResponsiveGrid>
-      <Border Classes="Common Header"/>
-      <Border Classes="Common Section1"/>
-      <Border Classes="Common Section1"/>
-      <Border Classes="Common Section1"/>
-      <Border Classes="Common Section1"/>
-      <Border Classes="Common Section2"/>
-      <Border Classes="Common Section2"/>
-      <Border Classes="Common Footer"/>
-    </ge:ResponsiveGrid>
-  </Grid>
+﻿<Window
+    x:Class="ResponsiveGridSample.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ge="clr-namespace:GridExtra.Avalonia;assembly=GridExtra.Avalonia"
+    Title="ResponsiveGrid Example"
+    Width="600"
+    Height="400"
+    Padding="3"
+    ExtendClientAreaChromeHints="PreferSystemChrome">
+    <Grid>
+        <Grid.Styles>
+            <Style Selector="Border">
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="DarkGray" />
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="Background" Value="LightGray" />
+                <Setter Property="Height" Value="60" />
+            </Style>
+            <Style Selector="Border.Header">
+                <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
+            </Style>
+            <Style Selector="Border.Section1">
+                <Setter Property="ge:ResponsiveGrid.XS" Value="6" />
+                <Setter Property="ge:ResponsiveGrid.SM" Value="3" />
+                <Setter Property="ge:ResponsiveGrid.MD" Value="2" />
+            </Style>
+            <Style Selector="Border.Section2">
+                <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
+                <Setter Property="ge:ResponsiveGrid.SM" Value="6" />
+                <Setter Property="ge:ResponsiveGrid.MD" Value="2" />
+            </Style>
+            <Style Selector="Border.Footer">
+                <Setter Property="ge:ResponsiveGrid.XS" Value="12" />
+            </Style>
+        </Grid.Styles>
+
+        <ge:ResponsiveGrid>
+            <Border Classes="Header" />
+            <Border Classes="Section1" />
+            <Border Classes="Section1" />
+            <Border Classes="Section1" />
+            <Border Classes="Section1" />
+            <Border Classes="Section2" />
+            <Border Classes="Section2" />
+            <Border Classes="Footer" />
+        </ge:ResponsiveGrid>
+
+    </Grid>
 </Window>
